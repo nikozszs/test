@@ -15,14 +15,16 @@ const mockModel = {
 describe('ParamEditor', () => {
     test('отображение всех параметров', () => {
         render(<ParamEditor params={mockParams} model={mockModel} />)
-        expect(screen.getByLabelText('Наименование')).toBeInTheDocument()
-        expect(screen.getByLabelText('Описание')).toBeInTheDocument()
+        expect(screen.getByText('Назначение')).toBeInTheDocument()
+        expect(screen.getByText('Длина')).toBeInTheDocument()
+        expect(screen.getAllByRole('textbox')).toHaveLength(2)
     })
 
     test('инициализируется значения из Model', () => {
         render(<ParamEditor params={mockParams} model={mockModel} />)
-        expect(screen.getByLabelText('Наименование')).toHaveValue('Тестовое значение')
-        expect(screen.getByLabelText('Описание')).toHaveValue('')
+        const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
+        expect(inputs[0]).toHaveValue('повседневное')
+        expect(inputs[1]).toHaveValue('макси')
     })
 
     test('getModel() возвр обновленную модель', () => {
